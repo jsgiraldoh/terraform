@@ -1,0 +1,16 @@
+# Create a new SSH key
+resource "digitalocean_ssh_key" "default-2" {
+  name       = "default-2"
+  public_key = file("ssh/default-2.pub")
+}
+
+# Create a centos-2vcpu-4gb-rancher-control-plane-worker
+resource "digitalocean_droplet" "centos-2vcpu-4gb-rancher-control-plane-worker-2" {
+  # ...
+  image  = "centos-7-x64"
+  name   = "centos-2vcpu-4gb-rancher-control-plane-worker-2"
+  region = "nyc1"
+  size   = "s-2vcpu-4gb"
+  ssh_keys = ["${digitalocean_ssh_key.default-2.fingerprint}"]
+  user_data = file("user_data_app.sh")
+}

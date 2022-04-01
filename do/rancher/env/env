@@ -1,0 +1,3 @@
+terraform apply -var "do_token=${TF_do_token}"
+
+export TF_do_token=""
